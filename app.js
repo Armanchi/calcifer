@@ -2,25 +2,33 @@ require("dotenv").config();
 const express = require ('express');
 const app = express();
 const bodyParser = require('body-parser');
-const cors = require('cors');
+// const passport = require("passport");
 const path = require('path');
 
+const viewsPath = path.join(__dirname, '../views/pages') 
 
 
 //security packages
+const cors = require('cors');
+const helmet = require("helmet");
+// const cors = require("cors");
+const xss = require("xss-clean");
 const rateLimiter = require('express-rate-limit')
-app.use(cors());
 
-//connect db
+// passport_init();
+// app.use(passport.initialize());
+// app.use(passport.session());
+// app.use(express.urlencoded({ extended: false }));
+
+
+// connect db
 const connectDB = require('./db/connect')
 const authenticateUser = require('./middleware/authentication')
 
 
-//routers
-const indexRouter = require('./routes/index')
+// //routers
 const authRouter = require('./routes/auth')
 const choresRouter = require('./routes/chores')
-
 
 
 // error handler
@@ -33,27 +41,43 @@ app.use(rateLimiter({
   max: 100, //limit each IP to 100 requests per  window
 }));
 
-//extra packages 
+
+
+// app.use(express.static("public"));
 app.use(express.json());
-app.use(express.urlencoded({extended:true}))
+// app.use(cors());
+app.use(helmet());
+app.use(xss());
 app.use(bodyParser());
 
 
-
 //routes
-app.set('views', 'views')
-app.set('view engine', 'ejs')
+app.use(express.urlencoded({extended:true}))
+app.set('view engine', 'ejs');
+
 app.use('/api/v1/auth', authRouter)
-app.use('/api/v1/auth/chores', choresRouter)
-
-app.use('/', indexRouter)
+app.use('/api/v1/chores',authenticateUser, choresRouter)
 
 
-app.use(notFoundMiddleware)
-app.use(errorHandlerMiddleware)
 
 
- 
+
+// app.use(notFoundMiddleware)
+// app.use(errorHandlerMiddleware)
+
+
+// index page
+app.get("/", (req, res, next) => {
+  res.render('pages')
+});
+
+// login page
+app.get('/login', (req, res, next) => {
+ res.render('pages')
+});
+
+
+
 
 const port = process.env.PORT || 5000;
 
