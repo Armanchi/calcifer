@@ -7,6 +7,11 @@ const path = require('path');
 
 const viewsPath = path.join(__dirname, '../views/pages') 
 
+app.use(express.static(__dirname + '/public'));
+app.use( express.static( "views" ) )
+
+
+
 
 //security packages
 const cors = require('cors');
@@ -29,11 +34,14 @@ const authenticateUser = require('./middleware/authentication')
 // //routers
 const authRouter = require('./routes/auth')
 const choresRouter = require('./routes/chores')
+const childRouter = require('./routes/child')
+
 
 
 // error handler
 const notFoundMiddleware = require('./middleware/not-found')
 const errorHandlerMiddleware = require('./middleware/error-handler')
+
 
 app.set('trust proxy', 1);
 app.use(rateLimiter({
@@ -46,7 +54,15 @@ app.use(rateLimiter({
 // app.use(express.static("public"));
 app.use(express.json());
 // app.use(cors());
-app.use(helmet());
+app.use(helmet({ crossOriginEmbedderPolicy: false, originAgentCluster: true }));
+app.use(
+  helmet.contentSecurityPolicy({
+    useDefaults: true,
+    directives: {
+      "img-src": ["'self'", "https: data: blob:"],
+    },
+  })
+);
 app.use(xss());
 app.use(bodyParser());
 
@@ -60,21 +76,27 @@ app.use('/api/v1/chores',authenticateUser, choresRouter)
 
 
 
-
-
 // app.use(notFoundMiddleware)
 // app.use(errorHandlerMiddleware)
 
 
 // index page
 app.get("/", (req, res, next) => {
-  res.render('pages')
+  res.render('pages/index')
 });
 
-// login page
-app.get('/login', (req, res, next) => {
- res.render('pages')
+app.get('/home', (req, res, next) => {
+  res.render('pages/home')
 });
+
+app.post('/home', (req, res) => {
+  let inputText = [];
+  inputText.push(req.body.userInput)
+  res.render('pages/home', {
+      inputText,
+  });
+});
+ 
 
 
 
