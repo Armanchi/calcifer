@@ -92,6 +92,11 @@ app.get('/dashboard', (req, res, next) => {
   res.render('pages/dashboard')
 });
 
+app.get("/register", (req, res, next) => {
+  res.render('pages/register')
+});
+
+
 
 
 
@@ -108,6 +113,14 @@ app.post('/dashboard', (req, res) => {
   let inputText = [];
   inputText.push(req.body.userInput)
   res.render('pages/dashboard', {
+      inputText,
+  });
+});
+
+app.post('/register', (req, res) => {
+  let inputText = [];
+  inputText.push(req.body.userInput)
+  res.render('pages/register', {
       inputText,
   });
 });

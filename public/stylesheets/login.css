@@ -50,12 +50,13 @@ button:hover{
     padding-top: 50px;
 }
 
+
   
 .form-signin {
     width: 200px;
-    height:300px;
+    height:165px;
     padding: 60px; 
-    padding-top: 50px;
+    padding-top: 20px;
     margin: 20px;
 } 
 
@@ -83,6 +84,8 @@ input[type="password"] {
     border-radius: 12px;
 } 
 
+
+
 #intro{
     font-size: 20px;
     text-align:center;
@@ -91,7 +94,7 @@ input[type="password"] {
 #account{
     font-size: 12px;
     text-align: center;
-    padding-bottom: 10px;
+    /* padding-bottom: 10px; */
 }
 
 
@@ -102,5 +105,11 @@ input[type="password"] {
     opacity: .7;
 }
 
+.register{
+    width: 200px;
+    height:65px;
+    margin: 20px;
+    padding-left: 60px;
+}
 
   

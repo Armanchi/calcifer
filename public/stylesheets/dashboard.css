@@ -1,0 +1,7 @@
+body{
+    width: 100%;
+    align-items: center;
+    height: 100%;
+    font-family: 'Overpass', sans-serif;
+    background-color: rgba(198, 193, 170, 0.3);
+}
