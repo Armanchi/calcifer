@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const ChoreSchema = new mongoose.Schema({
-    name: {
+    Chorename: {
         type: String,
         required: [true, 'must provide chore name'],
         trim: true,

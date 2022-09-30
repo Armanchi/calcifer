@@ -29,9 +29,9 @@ const getAllChores = async (req, res) => {
   
   const updateChore = async (req, res) => {
     const {
-      body: {name, price},
+      body: {Chorename, price},
       user: {userId},
-      params: {id: jobId},
+      params: {id: choreId},
     } = req;
     if (name === "" || price === "")
       throw new BadRequestError("Chore name or price fields cannot be empty");

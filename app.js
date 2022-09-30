@@ -73,7 +73,7 @@ app.set('view engine', 'ejs');
 
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/chores',authenticateUser, choresRouter)
-
+app.use('api/v1/child',authenticateUser ,childRouter)
 
 
 // app.use(notFoundMiddleware)

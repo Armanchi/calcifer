@@ -8,7 +8,7 @@ const {getAllChildren,
     deleteChild} = require('../controllers/child');
 
 
-router.route('/').get(getAllChildren).post(createChild);
+router.route('/child').get(getAllChildren).post(createChild);
 router.route('/:id').get(getChild).delete(deleteChild).patch(updateChild);
 
 

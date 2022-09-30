@@ -1,11 +1,9 @@
-const Chore = require('../models/chores')
+const Child = require('../models/child')
 const {StatusCodes} = require('http-status-codes')
 const {BadRequestError, NotFoundError} = require('../errors');
-const child = require('../models/child');
-
 
 const getAllChildren = async (req, res) => {
-    const children = await child.find({createdBy: req.user.userId}).sort("createdAt");
+    const children = await child.find({createdBy: req.user.userId}).sort("createdBy");
     res.status(StatusCodes.OK).json({children, count: children.length});
   };
   
@@ -16,14 +14,14 @@ const getAllChildren = async (req, res) => {
     } = req;
     const child = await Child.findOne({
       _id: childId,
-      createdBy: userId,
+    createdBy: userId,
     });
-    if (!child) throw new NotFoundError(`No chore found with id ${childId}`);
+    if (!child) throw new NotFoundError(`No child found with id ${childId}`);
     res.status(StatusCodes.OK).json({child});
   };
   
   const createChild = async (req, res) => {
-    req.body.createdBy = req.user.userId;
+    req.body.postedBy = req.user.user;
     const child = await Child.create(req.body);
     res.status(StatusCodes.CREATED).json({child});
   };
@@ -35,7 +33,7 @@ const getAllChildren = async (req, res) => {
       params: {id: childId},
     } = req;
     if (name === "" || balance === "")
-      throw new BadRequestError("Chore name or price fields cannot be empty");
+      throw new BadRequestError("Child name filed cannot be empty");
     const child = await Child.findOneAndUpdate(
       {_id: childId, createdBy: userId},
       req.body,
