@@ -5,7 +5,9 @@ const {getAllChildren,
     getChild, 
     createChild, 
     updateChild, 
-    deleteChild} = require('../controllers/child');
+    deleteChild} = require('../controllers/chores');
+
+
 
 
 router.route('/child').get(getAllChildren).post(createChild);

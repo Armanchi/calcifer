@@ -24,10 +24,10 @@ const parentUserSchema = new mongoose.Schema({
         maxlength: 12,
     },
 
-    role: { 
-        type: String,
-        default: "children" 
-    },
+    // role: { 
+    //     type: String,
+    //     default: "parent" 
+    // },
 })
 
 

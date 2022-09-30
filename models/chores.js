@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 const ChoreSchema = new mongoose.Schema({
     Chorename: {
         type: String,
@@ -32,7 +33,34 @@ const ChoreSchema = new mongoose.Schema({
         default: Date.now },
     });
 
+    // //child model
+const childSchema = new mongoose.Schema({
+
+    name: {
+        type: String,
+        required: [true, 'must provide childs name'],
+        maxlength: 50,
+    },
+    role: { 
+        type: String,
+        default: "children", 
+    },
+    balance: {
+        type: Number,
+        default: 0,
+    },
+    //this is a bug, can not use userId for both to CRUD
+    CreatedBy:{
+        type: mongoose.Types.ObjectId,
+        ref: 'User',
+    },
+})
+
+    
+
 
 
 
 module.exports = mongoose.model('Chore', ChoreSchema)
+
+module.exports = mongoose.model('Child', childSchema)

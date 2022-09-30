@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 // const passport = require("passport");
 const path = require('path');
 
+
 const viewsPath = path.join(__dirname, '../views/pages') 
 
 app.use(express.static(__dirname + '/public'));
@@ -89,6 +90,15 @@ app.get('/home', (req, res, next) => {
   res.render('pages/home')
 });
 
+// app.get('/home', async (req, res) => {
+// //   // Query for the data from MongoDB
+//   const data = await child.find({}); 
+//   res.render('home', { details: data }); 
+// });
+
+
+
+
 app.post('/home', (req, res) => {
   let inputText = [];
   inputText.push(req.body.userInput)
@@ -96,7 +106,8 @@ app.post('/home', (req, res) => {
       inputText,
   });
 });
- 
+
+
 
 
 
