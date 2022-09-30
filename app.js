@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require ('express');
 const app = express();
 const bodyParser = require('body-parser');
-// const passport = require("passport");
+const passport = require("passport");
 const path = require('path');
 
 
@@ -21,7 +21,6 @@ const helmet = require("helmet");
 const xss = require("xss-clean");
 const rateLimiter = require('express-rate-limit')
 
-// passport_init();
 // app.use(passport.initialize());
 // app.use(passport.session());
 // app.use(express.urlencoded({ extended: false }));
@@ -51,10 +50,8 @@ app.use(rateLimiter({
 }));
 
 
-
-// app.use(express.static("public"));
 app.use(express.json());
-// app.use(cors());
+app.use(cors());
 app.use(helmet({ crossOriginEmbedderPolicy: false, originAgentCluster: true }));
 app.use(
   helmet.contentSecurityPolicy({
@@ -81,6 +78,7 @@ app.use('api/v1/child',authenticateUser ,childRouter)
 // app.use(errorHandlerMiddleware)
 
 
+
 // index page
 app.get("/", (req, res, next) => {
   res.render('pages/index')
@@ -90,11 +88,10 @@ app.get('/home', (req, res, next) => {
   res.render('pages/home')
 });
 
-// app.get('/home', async (req, res) => {
-// //   // Query for the data from MongoDB
-//   const data = await child.find({}); 
-//   res.render('home', { details: data }); 
-// });
+app.get('/dashboard', (req, res, next) => {
+  res.render('pages/dashboard')
+});
+
 
 
 
@@ -107,7 +104,13 @@ app.post('/home', (req, res) => {
   });
 });
 
-
+app.post('/dashboard', (req, res) => {
+  let inputText = [];
+  inputText.push(req.body.userInput)
+  res.render('pages/dashboard', {
+      inputText,
+  });
+});
 
 
 

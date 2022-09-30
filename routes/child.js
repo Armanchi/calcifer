@@ -10,7 +10,7 @@ const {getAllChildren,
 
 
 
-router.route('/child').get(getAllChildren).post(createChild);
+router.route('/home').get(getAllChildren).post(createChild);
 router.route('/:id').get(getChild).delete(deleteChild).patch(updateChild);
 
 

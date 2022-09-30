@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 
 const ChoreSchema = new mongoose.Schema({
-    Chorename: {
+    name: {
         type: String,
         required: [true, 'must provide chore name'],
         trim: true,
@@ -59,8 +59,10 @@ const childSchema = new mongoose.Schema({
     
 
 
+const Chore = mongoose.model('Chore', ChoreSchema)
+const Child = mongoose.model('Child', childSchema)
 
-
-module.exports = mongoose.model('Chore', ChoreSchema)
-
-module.exports = mongoose.model('Child', childSchema)
+module.exports = {
+    Chore, 
+    Child
+}

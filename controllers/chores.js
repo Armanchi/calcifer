@@ -1,7 +1,7 @@
-const Chore = require('../models/chores')
+const {Chore, Child} = require('../models/chores')
 
 const {StatusCodes} = require('http-status-codes')
-const {BadRequestError, NotFoundError} = require('../errors')
+const {BadRequestError, NotFoundError} = require('../errors');
 
 
 const getAllChores = async (req, res) => {
