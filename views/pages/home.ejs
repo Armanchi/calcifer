@@ -27,16 +27,22 @@
     
     <h3 class="title">Click your photo to view your chores</h3>
 
-    <ul class="children">
 
-        <% for (let i=0; i < children.length; i++) {%>
-            <li class="child">
-                <span><%=child[i].name %></span>
-                <span><%=child[i].balance %></span>
-                
-        </li>
+    <% if (locals.child) { %>
+
+        <ul class="children">
+
+            <% for(let i =0; i < child.length; i++){ %>
+              <li class="child-list"> <%= child[i] %> </li>
             <% } %>
-    </ul>
+
+        
+
+        </ul>
+
+        <% } %>
+
+    
 
 
 

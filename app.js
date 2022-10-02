@@ -2,12 +2,8 @@ require("dotenv").config();
 const express = require ('express');
 const app = express();
 const bodyParser = require('body-parser');
-const passport = require("passport");
-const session = require("express-session");
-const passport_init = require("./passport/passport_init");
-const LocalStrategy = require("passport-local").Strategy;
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const passport = require('passport');
+const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session)
 
 
@@ -18,8 +14,14 @@ const authenticateUser = require('./middleware/authentication')
 
 let store = new MongoDBStore({
   uri: process.env.MONGO_URI,
-  collection: 'sessions'
+  collection: 'children',
+  // collection: 'chores'
 });
+store.on("error", function (error) {
+  console.log(error);
+});
+
+
 
 app.set('view engine', 'ejs');
 
@@ -104,12 +106,10 @@ app.get('/home', (req, res, next) => {
   res.render('pages/home')
 });
 
-
 // dashboard
 app.get('/dashboard', (req, res, next) => {
   res.render('pages/dashboard')
 });
-
 
 //register form
 app.get("/register", (req, res, next) => {
