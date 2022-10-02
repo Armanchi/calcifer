@@ -30,7 +30,7 @@ const getAllChores = async (req, res) => {
   
   const updateChore = async (req, res) => {
     const {
-      body: {Chorename, price},
+      body: {name, price},
       user: {userId},
       params: {id: choreId},
     } = req;
@@ -58,7 +58,7 @@ const getAllChores = async (req, res) => {
     res.status(StatusCodes.OK).send();
   };
 
-  // child Schema
+  // child controllers
   const getAllChildren = async (req, res) => {
     const children = await child.find({createdBy: req.user.userId}).sort("createdBy");
     res.status(StatusCodes.OK).json({children, count: children.length});
@@ -78,7 +78,7 @@ const getAllChores = async (req, res) => {
   };
   
   const createChild = async (req, res) => {
-    req.body.postedBy = req.user.user;
+    req.body.createdBy = req.user.user;
     const child = await Child.create(req.body);
     res.status(StatusCodes.CREATED).json({child});
   };

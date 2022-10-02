@@ -5,11 +5,17 @@ const {getAllChores,
     getChore, 
     createChore, 
     updateChore, 
-    deleteChore} = require('../controllers/chores');
+    deleteChore,
+    getAllChildren, 
+    getChild, 
+    createChild, 
+    updateChild, 
+    deleteChild
+    } = require('../controllers/chores');
 
 
-router.route('/').get(getAllChores).post(createChore);
-router.route('/:id').get(getChore).delete(deleteChore).patch(updateChore);
+router.route('/').get(getAllChores).post(createChore).get(getAllChildren).post(createChild);
+router.route(':id').get(getChore).delete(deleteChore).patch(updateChore).get(getChild).delete(deleteChild).patch(updateChild);
 
 
 
