@@ -1,92 +1,53 @@
 <!DOCTYPE html>
-
-<html>
-
-<head>
+<html lang="en">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcifer-homepage</title>
 
     <meta charset="utf-8">
-
-    <!-- <meta http-equiv="x-ua-compatible" content="ie=edge"> -->
-
-    <title>Calcifer-homepage</title>
 
 
     <meta name="description" content="">
 
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <link rel='stylesheet' href='/stylesheets/home.css' type="text/css">
+
+
 
 </head>
 
+    <body>
+    
+        <header>
+            <%- include('../partials/header'); %>
+          </header>
+    
+    <main>
 
-<body>
+      <div class="container">
 
-    <header>
-        <%- include('../partials/header'); %>
-      </header>
-      
+        <h1 class="title">Welcome</h1>
 
-    <div class="container">
+        <p class="home-page">Click a photo to view chores!</p>
+    
+        <ul class="child-list">
 
-        <% let User = 'User'; %>
+          <% children.forEach(function(child) { %>
 
-        <% inputText.forEach((text) =>{ %>
-            <p><%= text %></p>
-         <% }) %>
+            <li class="child">
 
-         <% if (User) {%>
-
-        <h3 class="title">Hello, <%= User.name %>! click a photo to view your chores</h3>
-
-
-        
-        <% let Child = 'child-list'; %>
-
-          
-        <ul class="children">
-
-            <% if (Child) {%>
-
-            <li class='child-list'> 
-
-                <a><%= Child.name %>!</a>
-
+              <a class="list" href="/chores"><%= child.name %></a>
+    
             </li>
+
+          <% }); %>
 
         </ul>
 
-        <%}%>
+        
+      </div>
 
-
-
-     <% } else { %>
-
-            <h1>Please log in or <a href="/sign-up">sign up.</a></h1>
-
-            <form action="/log-in" method="POST">
-
-              <label for="username">Username</label>
-
-              <input name="username" placeholder="username" type="text" />
-
-              <label for="password">Password</label>
-
-              <input name="password" type="password" />
-
-              <button>Log In</button>
-
-            </form>
-
-          <%}%>
-
-
-    </div>
-
-   
-
-  
+    </main>
+    
 
 
   </body>

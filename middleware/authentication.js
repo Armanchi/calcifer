@@ -21,12 +21,11 @@ const authMiddleware = async (req, res, next) => {
   }
 }
 
-// const setCurrentUser = (req, res, next) => {
-//   res.locals.currentUser = req.user;
-//   next();
-// };
+const setCurrentUser = (req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+};
 
 
-module.exports = { authMiddleware};
+module.exports = { authMiddleware, setCurrentUser };
 
-// , setCurrentUser 

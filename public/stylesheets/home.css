@@ -10,42 +10,48 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow: hidden;
+    width: 700px;
+    height: 500px;
+    border-radius: 10%;
     align-self: center;
-    padding: 5px 5px;
     margin: 80px auto;
+    background: rgba(198, 193, 170, 0.3);
 }
 
 .title{
     text-align: center;
+    padding-bottom: 50px;
 }
 
 
 
 .home-page{
     text-align: center;
+    padding-top: 25px;
+    font-size: 20px;
 }
 
 .child-list{
+    display:content;
+    flex-wrap: wrap;
+    flex-direction: row;
     color: black;
+    padding-top: 280px;
+    text-align: center;
 }
 
-.pdsh{
-    background-color:  #e9edc9;
-    color: #354f52;
-    text-align:center;
-    margin-bottom: 30px;
-    width: 100%;
-    height: 30px;
-    font-size: 15px;
-    font-weight: 500;
-    letter-spacing: 1px;
-    border-radius: 6px;
-    display:block;
-}
 
 button:hover{
     color:rgba(0, 151, 19, .5);
 }
 
+.list{
+    align-items: center;
+    color: #354f52;
+    font-size: 25px;
+}
+
+.list:hover{
+    color:rgba(0, 151, 19, .5)
+}
 

@@ -6,10 +6,12 @@ const passport = require('passport');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session)
 
-const { authMiddleware } = require("./middleware/authentication");
+const MongoClient = require('mongodb').MongoClient;
+
+const { authMiddleware, setCurrentUser } = require("./middleware/authentication");
 
 
-//, setCurrentUser
+
 // connect db
 const connectDB = require('./db/connect')
 
@@ -18,8 +20,8 @@ const connectDB = require('./db/connect')
 
 let store = new MongoDBStore({
   uri: process.env.MONGO_URI,
-  collection: 'children',
-  // collection: 'chores'
+  collection: 'sessions',
+  collection: 'chores'
 });
 store.on("error", function (error) {
   console.log(error);
@@ -64,8 +66,6 @@ const childRouter = require('./routes/child')
 // error handler
 const notFoundMiddleware = require('./middleware/not-found')
 const errorHandlerMiddleware = require('./middleware/error-handler');
-const { Child } = require("./models/chores");
-
 
 app.set('trust proxy', 1);
 app.use(rateLimiter({
@@ -96,7 +96,7 @@ app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/chores',authMiddleware, choresRouter)
 app.use('/api/v1/child',authMiddleware ,childRouter)
 
-// app.use(setCurrentUser);
+app.use(setCurrentUser);
 
 
 
@@ -107,6 +107,7 @@ app.use(errorHandlerMiddleware)
 app.get("/", (req, res, next) => {
   res.render('pages/index')
 });
+
 
 // dashboard
 app.get('/dashboard', (req, res, next) => {
@@ -119,36 +120,98 @@ app.get("/register", (req, res, next) => {
 });
 
 
-//home page
-app.post('/home', (req, res) => {
-  let inputText = [];
-  let children = [];
-  inputText.push(req.body.userInput)
-  children.push(req.body.Child)
+app.post('/home', function(req, res) {
+  var children = [
+    { name: 'Penelope'},
+    { name: 'Amadeo'},
+    { name: 'Elena'}
+  ];
+
   res.render('pages/home', {
-      inputText,
-      children,
+    children: children,
   });
 });
+
+
+app.get("/chores", function(req,res){
+ db.collection('chores')
+ .find()
+ .toArray(function (err, result)  {
+if (err) return console.log(err)
+res.render('pages/chores', {chores: result});
+
+});
+
+
+// app.post("/chores" , function(req,res){
+//   db.collection('chores').save(req.body, function(err, result) {
+//       if (err) return console.log(err);
+//       console.log('saved to database');
+//       res.redirect('/');
+//     });
+  
+//       });
+
+// app.get('/chores', (req, res) => {
+//   let chores = MongoDBStore.chores;
+//   res.render('pages/chores', {
+//     chores:chores
+//   })
+
+// })
+
+// app.get('/chores', (req, res)=> {
+//   res.render('pages/chores')
+// })
+
+// app.get('/chores', (req, res) => {
+//   MongoClient.connect(process.env.MONGO_URI, { useUnifiedTopology: true }, (err, client) => {
+//     if (err) return console.error(err);
+//     const db = client.db('chore-app');
+//     const collection = db.collection('chores');
+//     collection
+//       .find()
+//       .toArray()
+//       .then((results) => {
+//         res.render('pages/chores', { chores: results });
+//       })
+//       .catch((error) => {
+//         res.redirect('/');
+//       });
+//   });
+// });
+
+
+
+
+//get chores from mongodb ??????
+// app.get('/chores', (req, res) => {
+//   store.find().toArray()
+//   .then(data => {
+//     res.render('chores.ejs', {chores: data})
+//   })
+//   .catch(err => console.error(error))
+// });
+
 
 
 //dashboard
-app.post('/dashboard', (req, res) => {
-  let inputText = [];
-  inputText.push(req.body.userInput)
-  res.render('pages/dashboard', {
-      inputText,
-  });
-});
+// app.post('/dashboard', (req, res) => {
+//   let inputText = [];
+//   inputText.push(req.body.userInput)
+//   res.render('pages/dashboard', {
+//       inputText,
+//   });
+// });
 
 //register form
-app.post('/register', (req, res) => {
-  let inputText = [];
-  inputText.push(req.body.userInput)
-  res.render('pages/register', {
-      inputText,
-  });
-});
+// app.post('/register', (req, res) => {
+//   let inputText = [];
+//   inputText.push(req.body.userInput)
+//   res.render('pages/register', {
+//       inputText,
+//   });
+// });
 
 
 
