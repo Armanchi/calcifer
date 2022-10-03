@@ -6,10 +6,14 @@ const passport = require('passport');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session)
 
+const { authMiddleware } = require("./middleware/authentication");
 
+
+//, setCurrentUser
 // connect db
 const connectDB = require('./db/connect')
-const authenticateUser = require('./middleware/authentication')
+
+
 
 
 let store = new MongoDBStore({
@@ -60,6 +64,7 @@ const childRouter = require('./routes/child')
 // error handler
 const notFoundMiddleware = require('./middleware/not-found')
 const errorHandlerMiddleware = require('./middleware/error-handler');
+const { Child } = require("./models/chores");
 
 
 app.set('trust proxy', 1);
@@ -88,22 +93,19 @@ app.use(express.urlencoded({extended:true}))
 
 //routes
 app.use('/api/v1/auth', authRouter)
-app.use('/api/v1/chores',authenticateUser, choresRouter)
-app.use('/api/v1/child',authenticateUser ,childRouter)
+app.use('/api/v1/chores',authMiddleware, choresRouter)
+app.use('/api/v1/child',authMiddleware ,childRouter)
+
+// app.use(setCurrentUser);
+
 
 
 //app.use(notFoundMiddleware)
 app.use(errorHandlerMiddleware)
 
-
 // index page
 app.get("/", (req, res, next) => {
   res.render('pages/index')
-});
-
-//home page
-app.get('/home', (req, res, next) => {
-  res.render('pages/home')
 });
 
 // dashboard
@@ -116,14 +118,19 @@ app.get("/register", (req, res, next) => {
   res.render('pages/register')
 });
 
+
 //home page
 app.post('/home', (req, res) => {
   let inputText = [];
+  let children = [];
   inputText.push(req.body.userInput)
+  children.push(req.body.Child)
   res.render('pages/home', {
       inputText,
+      children,
   });
 });
+
 
 //dashboard
 app.post('/dashboard', (req, res) => {
@@ -142,6 +149,10 @@ app.post('/register', (req, res) => {
       inputText,
   });
 });
+
+
+
+
 
 
 

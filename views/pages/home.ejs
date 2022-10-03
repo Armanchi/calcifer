@@ -23,41 +23,75 @@
 
 <body>
 
+    <header>
+        <%- include('../partials/header'); %>
+      </header>
+      
+
     <div class="container">
-    
-    <h3 class="title">Click your photo to view your chores</h3>
 
+        <% let User = 'User'; %>
 
-    <% if (locals.child) { %>
+        <% inputText.forEach((text) =>{ %>
+            <p><%= text %></p>
+         <% }) %>
 
-        <ul class="children">
+         <% if (User) {%>
 
-            <% for(let i =0; i < child.length; i++){ %>
-              <li class="child-list"> <%= child[i] %> </li>
-            <% } %>
+        <h3 class="title">Hello, <%= User.name %>! click a photo to view your chores</h3>
+
 
         
+        <% let Child = 'child-list'; %>
+
+          
+        <ul class="children">
+
+            <% if (Child) {%>
+
+            <li class='child-list'> 
+
+                <a><%= Child.name %>!</a>
+
+            </li>
 
         </ul>
 
-        <% } %>
-
-    
+        <%}%>
 
 
 
-    <form class="dashboard" action="/dashboard" method="post">
+     <% } else { %>
 
-        
-    <button class="pdsh" name="Submit" value="User-Dashboard" type="Submit">Dashboard</button>
+            <h1>Please log in or <a href="/sign-up">sign up.</a></h1>
 
-    </form>
+            <form action="/log-in" method="POST">
 
-</div>
+              <label for="username">Username</label>
+
+              <input name="username" placeholder="username" type="text" />
+
+              <label for="password">Password</label>
+
+              <input name="password" type="password" />
+
+              <button>Log In</button>
+
+            </form>
+
+          <%}%>
+
+
+    </div>
+
+   
+
+  
+
+
+  </body>
 
 
 
-
-</body>
 
 </html>

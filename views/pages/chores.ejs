@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- <%- include('../partials/head'); %> -->
+</head>
+<body class="container">
+
+<main>
+
+  <div class="jumbotron">
+
+    <% messages.forEach((msg) =>{ %>
+      <p class="msg"><%= msg %></p>
+   <% }) %>
+    <% if (currentUser) {%>
+      <p>Hello, <b><%= currentUser.name %></b>!</p> 
+   
+        <% if (chores.length > 0) { %>
+          <table class="table">
+          <tr><th>Name</th><th>Price</th><th colspan="5">Edit / Delete</th></tr>
+          <% chores.forEach(function(chore){ %>
+            <tr><td><%= chore.category %></td><td class="question"><%= chore.question %></td><td class="response"><%= chore.response %></td><td><%= query.date %></td>
+              <td><a href=<%= "/queries/edit/" + query.id %>  class="btn btn-primary">Edit</a></td>
+              <td><a href=<%= "/queries/delete/" + query.id %>  class="btn btn-primary">Delete</a></td>
+            </tr>
+            <% }) %>
+            <div class="sdblg-out"><a class="btn btn-primary" href="/log-out">LOG OUT</a></div><br>
+          </table>
+          <a href="/chores/add" class="btn btn-primary">Add chore</a><br><br><br>
+    <% } else { %>
+      <h4>There are no chores to show! Please add one.</h4>
+      <a href="/queries/add" class="btn btn-primary">Add chore</a><br><br><br>
+      <a class="btn btn-primary" href="/log-out">LOG OUT</a>
+    <% } %>
+    <% } %>
+  </div>
+</main>
+
+
+</body>
+</html>

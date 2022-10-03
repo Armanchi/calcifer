@@ -26,6 +26,10 @@ body{
     text-align: center;
 }
 
+.child-list{
+    color: black;
+}
+
 .pdsh{
     background-color:  #e9edc9;
     color: #354f52;
@@ -43,4 +47,5 @@ body{
 button:hover{
     color:rgba(0, 151, 19, .5);
 }
+
 

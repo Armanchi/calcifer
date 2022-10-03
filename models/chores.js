@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 
+
 const ChoreSchema = new mongoose.Schema({
     name: {
         type: String,

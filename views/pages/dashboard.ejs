@@ -21,25 +21,17 @@
 </head>
 
 
-<!-- <body> -->
-
-
-<!--     
-   <h1>This is a Dashboard!</h1>
-
-   <ul>
-    <% users.forEach(function(user){ %>
-      <%- include('user/show', {user: user}) %>
-    <% }); %>
-  </ul> -->
-
   <body>
 
     <h1>This is a Dashboard!</h1>
 
 
+ 
 
 
+   <% if (user.user) { %>
+    <h2>Hi, I am <%= user.name  %></h2>
+<% } %>
 
 
 
@@ -47,6 +39,6 @@
   </body>
 
 
-<!-- </body> -->
+
 
 </html>
