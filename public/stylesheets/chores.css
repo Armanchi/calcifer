@@ -1,0 +1,29 @@
+body{
+    width: 100%;
+    align-items: center;
+    height: 100%;
+    font-family: 'Overpass', sans-serif;
+    background-color: rgba(198, 193, 170, 0.3);
+}
+
+table{
+    border: 5px solid;
+    width: 50%;
+}
+
+tr{
+    
+}
+
+/* .container{
+    display: flex;
+    align-items: center;
+    flex-basis: auto;
+    height: 500px;
+    border-radius: 10%;
+    overflow: hidden;
+    align-self: center;
+    padding: 5px 5px; 
+    margin: 80px auto;
+    background: rgba(198, 193, 170, 0.3);
+} */

@@ -6,22 +6,16 @@ const passport = require('passport');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session)
 
-const MongoClient = require('mongodb').MongoClient;
 
 const { authMiddleware, setCurrentUser } = require("./middleware/authentication");
-
-
 
 // connect db
 const connectDB = require('./db/connect')
 
 
-
-
 let store = new MongoDBStore({
   uri: process.env.MONGO_URI,
   collection: 'sessions',
-  collection: 'chores'
 });
 store.on("error", function (error) {
   console.log(error);
@@ -132,14 +126,14 @@ app.post('/home', function(req, res) {
   });
 });
 
+//how to get chores from db??/
+app.get('/chores', function(req, res) {
+  let chores = [{
 
-app.get("/chores", function(req,res){
- db.collection('chores')
- .find()
- .toArray(function (err, result)  {
-if (err) return console.log(err)
-res.render('pages/chores', {chores: result});
-
+  }];
+  res.render('pages/chores', {
+    chores: chores,
+  });
 });
 
 
@@ -152,46 +146,7 @@ res.render('pages/chores', {chores: result});
   
 //       });
 
-// app.get('/chores', (req, res) => {
-//   let chores = MongoDBStore.chores;
-//   res.render('pages/chores', {
-//     chores:chores
-//   })
 
-// })
-
-// app.get('/chores', (req, res)=> {
-//   res.render('pages/chores')
-// })
-
-// app.get('/chores', (req, res) => {
-//   MongoClient.connect(process.env.MONGO_URI, { useUnifiedTopology: true }, (err, client) => {
-//     if (err) return console.error(err);
-//     const db = client.db('chore-app');
-//     const collection = db.collection('chores');
-//     collection
-//       .find()
-//       .toArray()
-//       .then((results) => {
-//         res.render('pages/chores', { chores: results });
-//       })
-//       .catch((error) => {
-//         res.redirect('/');
-//       });
-//   });
-// });
-
-
-
-
-//get chores from mongodb ??????
-// app.get('/chores', (req, res) => {
-//   store.find().toArray()
-//   .then(data => {
-//     res.render('chores.ejs', {chores: data})
-//   })
-//   .catch(err => console.error(error))
-// });
 
 
 
